@@ -1,0 +1,31 @@
+---
+description: MMORPG 客户端约定：Unity、HybridCLR、MVC、AssetBundle、网络与风格,URP,UGUI
+globs: client/**
+alwaysApply: false
+---
+
+# MMORPG 客户端规则
+
+## 工程与目录
+
+- 所有客户端代码放在 **`client/`** 目录下。
+- 开发引擎：**Unity**（版本 1.6.9，以项目实际为准）。
+
+## 技术栈
+
+| 用途     | 技术/方案       | 说明 |
+|----------|-----------------|------|
+| 热更新   | **HybridCLR**   | 热更新采用 HybridCLR，相关逻辑与配置放在 client 内。 |
+| 模块设计 | **MVC**         | Model 管数据和业务，View 管表现与输入，Controller 做协调与流程。 |
+| 资源加载 | **AssetBundle** | 资源加载统一走 AssetBundle，不依赖 Resources 等常驻加载。 |
+| UI框架   | **UGUI**        |        ugui                                            |
+| 渲染管线 | **URP**              |       urp                                                 |
+
+## 网络
+
+- **同时支持 Socket 与 HTTP**：按需求选用或并存（如长连接用 Socket、部分接口用 HTTP）。
+- **Socket 需支持多连接**（多服、重连、多路等），实现时在注释或文档中说明连接模型。
+
+## 代码风格
+
+- 同一模块内保持风格一致（命名、缩进、注释、文件组织）。

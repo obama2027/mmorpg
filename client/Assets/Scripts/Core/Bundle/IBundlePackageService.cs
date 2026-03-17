@@ -1,0 +1,13 @@
+using System.Threading.Tasks;
+
+namespace MMORPG.Client.Core.Bundle
+{
+    public interface IBundlePackageService
+    {
+        bool IsBundleReady(string bundleName);
+        Task EnsureBundleReadyAsync(string bundleName);
+
+        bool IsPackageReady(string packageName);
+        Task EnsurePackageReadyAsync(string packageName);
+    }
+}

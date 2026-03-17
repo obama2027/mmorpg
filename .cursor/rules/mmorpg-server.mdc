@@ -1,0 +1,11 @@
+---
+description: MMORPG 服务端约定：Skynet 与目录
+globs: server/**
+alwaysApply: false
+---
+
+# MMORPG 服务端规则
+
+- 所有服务端代码放在 **`server/`** 目录下。
+- 后端使用开源框架 **Skynet**。
+- 按 Skynet 服务拆分业务（如认证、Agent、场景、任务等），保持风格一致。
