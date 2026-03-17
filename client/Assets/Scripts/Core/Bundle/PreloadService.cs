@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace MMORPG.Client.Core.Bundle
+public sealed class PreloadService
 {
-    public sealed class PreloadService
-    {
         private interface IAssetPreloadEntry : IDisposable
         {
             string Key { get; }
@@ -519,5 +517,4 @@ namespace MMORPG.Client.Core.Bundle
                 throw new InvalidOperationException("PreloadService group config is null.");
             }
         }
-    }
 }

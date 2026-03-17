@@ -2,12 +2,13 @@ using System;
 using System.IO;
 using UnityEngine;
 
-namespace MMORPG.Client.Core.Bundle
+public static class BundlePathUtility
 {
-    public static class BundlePathUtility
+    private const char BundleNameSeparator = '_';
+    private const string BundleFileExtension = ".bundle";
+
+    public static string GetRuntimePlatformName()
     {
-        public static string GetRuntimePlatformName()
-        {
 #if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
             return "StandaloneWindows64";
 #elif UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
@@ -21,23 +22,50 @@ namespace MMORPG.Client.Core.Bundle
 #else
             throw new PlatformNotSupportedException("Unsupported AssetBundle runtime platform.");
 #endif
+    }
+
+    public static string GetBundleRootPath(string rootFolderName)
+    {
+        var path = Path.Combine(Application.streamingAssetsPath, GetRuntimePlatformName());
+        return Normalize(path);
+    }
+
+    public static string GetManifestFilePath(string rootFolderName)
+    {
+        var path = Path.Combine(GetBundleRootPath(rootFolderName), GetRuntimePlatformName());
+        return Normalize(path);
+    }
+
+    public static string GetBundleFilePath(string rootFolderName, string bundleName)
+    {
+        var path = Path.Combine(GetBundleRootPath(rootFolderName), GetBundleFileName(bundleName));
+        return Normalize(path);
+    }
+
+    public static string GetBundleFileName(string bundleName)
+    {
+        return GetRuntimeBundleName(bundleName);
+    }
+
+    public static string GetRuntimeBundleName(string bundleName)
+    {
+        if (string.IsNullOrWhiteSpace(bundleName))
+        {
+            return string.Empty;
         }
 
-        public static string GetBundleRootPath(string rootFolderName)
+        var normalizedBundleName = bundleName.Replace("\\", "/").Trim('/');
+        if (!normalizedBundleName.Contains("/") &&
+            normalizedBundleName.EndsWith(BundleFileExtension, StringComparison.OrdinalIgnoreCase))
         {
-            var path = Path.Combine(Application.streamingAssetsPath, rootFolderName, GetRuntimePlatformName());
-            return Normalize(path);
+            return normalizedBundleName;
         }
 
-        public static string GetBundleFilePath(string rootFolderName, string bundleName)
-        {
-            var path = Path.Combine(GetBundleRootPath(rootFolderName), bundleName);
-            return Normalize(path);
-        }
+        return normalizedBundleName.Replace('/', BundleNameSeparator) + BundleFileExtension;
+    }
 
-        private static string Normalize(string path)
-        {
-            return path.Replace("\\", "/");
-        }
+    private static string Normalize(string path)
+    {
+        return path.Replace("\\", "/");
     }
 }

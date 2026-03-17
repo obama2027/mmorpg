@@ -4,29 +4,29 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace MMORPG.Client.Core.Bundle
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+public sealed class GameAssetService : MonoBehaviour
 {
-    public sealed class GameAssetService : MonoBehaviour
-    {
-        public static GameAssetService Instance { get; private set; }
+    public static GameAssetService Instance { get; private set; }
 
-        [Header("Bundle Settings")]
-        [SerializeField] private bool _developmentMode = true;
-        [SerializeField] private string _bundleRootFolderName = "AssetBundles";
+    [Header("Config")]
+    [SerializeField] private BuildConfig _buildConfig;
+    [SerializeField] private AssetAddressConfig _addressConfig;
+    [SerializeField] private PreloadGroupConfig _preloadGroupConfig;
 
-        [Header("Config")]
-        [SerializeField] private AssetAddressConfig _addressConfig;
-        [SerializeField] private PreloadGroupConfig _preloadGroupConfig;
+    [Header("Log Switch")]
+    [SerializeField] private bool _enableBundleInfoLog = true;
+    [SerializeField] private bool _enableBundleWarningLog = true;
+    [SerializeField] private bool _enableBundleErrorLog = true;
 
-        [Header("Log Switch")]
-        [SerializeField] private bool _enableBundleInfoLog = true;
-        [SerializeField] private bool _enableBundleWarningLog = true;
-        [SerializeField] private bool _enableBundleErrorLog = true;
+    private IBundlePackageService _packageService;
 
-        private IBundlePackageService _packageService;
-
-        public AssetAddressConfig AddressConfig => _addressConfig;
-        public PreloadGroupConfig PreloadGroupConfig => _preloadGroupConfig;
+    public BuildConfig BuildConfig => _buildConfig;
+    public AssetAddressConfig AddressConfig => _addressConfig;
+    public PreloadGroupConfig PreloadGroupConfig => _preloadGroupConfig;
 
         private async void Awake()
         {
@@ -39,118 +39,145 @@ namespace MMORPG.Client.Core.Bundle
             Instance = this;
             DontDestroyOnLoad(gameObject);
 
-            BundleLogger.EnableInfoLog = _enableBundleInfoLog;
-            BundleLogger.EnableWarningLog = _enableBundleWarningLog;
-            BundleLogger.EnableErrorLog = _enableBundleErrorLog;
+        BundleLogger.EnableInfoLog = _enableBundleInfoLog;
+        BundleLogger.EnableWarningLog = _enableBundleWarningLog;
+        BundleLogger.EnableErrorLog = _enableBundleErrorLog;
 
-            AssetBundleManager.Instance.Configure(_developmentMode, _bundleRootFolderName);
-            await AssetBundleManager.Instance.InitializeAsync();
+        AssetBundleManager.Instance.Configure(ShouldUseEditorDevelopmentMode());
+        await AssetBundleManager.Instance.InitializeAsync();
 
-            _packageService = new LocalBundlePackageService();
-            PreloadService.Instance.Initialize(_addressConfig, _preloadGroupConfig, _packageService);
+        _packageService = new LocalBundlePackageService();
+        PreloadService.Instance.Initialize(_addressConfig, _preloadGroupConfig, _packageService);
 
-            BundleLogger.Info("GameAssetService", "initialized");
-        }
+        BundleLogger.Info("GameAssetService", "initialized");
+    }
 
-        public AssetHandle<T> LoadAsset<T>(string key) where T : UnityEngine.Object
+    private bool ShouldUseEditorDevelopmentMode()
+    {
+#if UNITY_EDITOR
+        var buildConfig = ResolveBuildConfig();
+        return buildConfig != null && buildConfig.EditorDevelopmentMode;
+#else
+        return false;
+#endif
+    }
+
+#if UNITY_EDITOR
+    private BuildConfig ResolveBuildConfig()
+    {
+        if (_buildConfig != null)
         {
-            var address = _addressConfig.GetAssetAddress(key);
-            return AssetBundleManager.Instance.LoadAsset<T>(address);
+            return _buildConfig;
         }
 
-        public Task<AssetHandle<T>> LoadAssetAsync<T>(string key) where T : UnityEngine.Object
+        _buildConfig = AssetDatabase.LoadAssetAtPath<BuildConfig>(BuildConfig.AssetPath);
+        if (_buildConfig == null)
         {
-            var address = _addressConfig.GetAssetAddress(key);
-            return AssetBundleManager.Instance.LoadAssetAsync<T>(address);
+            BundleLogger.Warn("GameAssetService", $"BuildConfig not found: {BuildConfig.AssetPath}");
         }
 
-        public Task LoadSceneAsync(string key, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
-        {
-            var address = _addressConfig.GetSceneAddress(key);
-            return BundleSceneLoader.Instance.LoadSceneAsync(address, loadSceneMode);
-        }
+        return _buildConfig;
+    }
+#endif
 
-        public Task UnloadSceneAsync(string key, bool unloadUnusedAssets = true, bool forceGC = false)
-        {
-            var address = _addressConfig.GetSceneAddress(key);
-            return BundleSceneLoader.Instance.UnloadSceneAsync(address, unloadUnusedAssets, forceGC);
-        }
+    public AssetHandle<T> LoadAsset<T>(string key) where T : UnityEngine.Object
+    {
+        var address = _addressConfig.GetAssetAddress(key);
+        return AssetBundleManager.Instance.LoadAsset<T>(address);
+    }
 
-        public Task PreloadBundleAsync(string bundleName)
-        {
-            return PreloadService.Instance.PreloadBundleAsync(bundleName);
-        }
+    public Task<AssetHandle<T>> LoadAssetAsync<T>(string key) where T : UnityEngine.Object
+    {
+        var address = _addressConfig.GetAssetAddress(key);
+        return AssetBundleManager.Instance.LoadAssetAsync<T>(address);
+    }
 
-        public Task PreloadBundlesAsync(IList<string> bundleNames, Action<int, int> onProgress = null)
-        {
-            return PreloadService.Instance.PreloadBundlesAsync(bundleNames, onProgress);
-        }
+    public Task LoadSceneAsync(string key, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
+    {
+        var address = _addressConfig.GetSceneAddress(key);
+        return BundleSceneLoader.Instance.LoadSceneAsync(address, loadSceneMode);
+    }
 
-        public Task PreloadAssetAsync<T>(string assetKey) where T : UnityEngine.Object
-        {
-            return PreloadService.Instance.PreloadAssetAsync<T>(assetKey);
-        }
+    public Task UnloadSceneAsync(string key, bool unloadUnusedAssets = true, bool forceGC = false)
+    {
+        var address = _addressConfig.GetSceneAddress(key);
+        return BundleSceneLoader.Instance.UnloadSceneAsync(address, unloadUnusedAssets, forceGC);
+    }
 
-        public Task PreloadAssetsAsync<T>(IList<string> assetKeys, Action<int, int> onProgress = null)
-            where T : UnityEngine.Object
-        {
-            return PreloadService.Instance.PreloadAssetsAsync<T>(assetKeys, onProgress);
-        }
+    public Task PreloadBundleAsync(string bundleName)
+    {
+        return PreloadService.Instance.PreloadBundleAsync(bundleName);
+    }
 
-        public Task PreloadGroupAsync(string groupKey, Action<int, int> onProgress = null)
-        {
-            return PreloadService.Instance.PreloadGroupAsync(groupKey, onProgress);
-        }
+    public Task PreloadBundlesAsync(IList<string> bundleNames, Action<int, int> onProgress = null)
+    {
+        return PreloadService.Instance.PreloadBundlesAsync(bundleNames, onProgress);
+    }
 
-        public void ReleaseBundlePreload(string bundleName)
-        {
-            PreloadService.Instance.ReleaseBundlePreload(bundleName);
-        }
+    public Task PreloadAssetAsync<T>(string assetKey) where T : UnityEngine.Object
+    {
+        return PreloadService.Instance.PreloadAssetAsync<T>(assetKey);
+    }
 
-        public void ReleaseAssetPreload(string assetKey)
-        {
-            PreloadService.Instance.ReleaseAssetPreload(assetKey);
-        }
+    public Task PreloadAssetsAsync<T>(IList<string> assetKeys, Action<int, int> onProgress = null)
+        where T : UnityEngine.Object
+    {
+        return PreloadService.Instance.PreloadAssetsAsync<T>(assetKeys, onProgress);
+    }
 
-        public void ReleaseGroup(string groupKey)
-        {
-            PreloadService.Instance.ReleaseGroup(groupKey);
-        }
+    public Task PreloadGroupAsync(string groupKey, Action<int, int> onProgress = null)
+    {
+        return PreloadService.Instance.PreloadGroupAsync(groupKey, onProgress);
+    }
 
-        public bool TryGetPreloadedAsset<T>(string assetKey, out T asset) where T : UnityEngine.Object
-        {
-            return PreloadService.Instance.TryGetPreloadedAsset(assetKey, out asset);
-        }
+    public void ReleaseBundlePreload(string bundleName)
+    {
+        PreloadService.Instance.ReleaseBundlePreload(bundleName);
+    }
 
-        public Task ClearAllPreloadsAsync(bool unloadUnusedAssets = true, bool forceGC = false)
-        {
-            return PreloadService.Instance.ClearAllAsync(unloadUnusedAssets, forceGC);
-        }
+    public void ReleaseAssetPreload(string assetKey)
+    {
+        PreloadService.Instance.ReleaseAssetPreload(assetKey);
+    }
 
-        public async Task ReleaseGroupAndCollectAsync(string groupKey, bool forceGC = true)
-        {
-            ReleaseGroup(groupKey);
-            await AssetBundleManager.Instance.UnloadUnusedAssetsAsync(forceGC);
-        }
+    public void ReleaseGroup(string groupKey)
+    {
+        PreloadService.Instance.ReleaseGroup(groupKey);
+    }
 
-        public LoadedBundleInfo[] GetLoadedBundleInfos()
-        {
-            return AssetBundleManager.Instance.GetLoadedBundleInfos();
-        }
+    public bool TryGetPreloadedAsset<T>(string assetKey, out T asset) where T : UnityEngine.Object
+    {
+        return PreloadService.Instance.TryGetPreloadedAsset(assetKey, out asset);
+    }
 
-        public PreloadedBundleInfo[] GetPreloadedBundleInfos()
-        {
-            return PreloadService.Instance.GetPreloadedBundleInfos();
-        }
+    public Task ClearAllPreloadsAsync(bool unloadUnusedAssets = true, bool forceGC = false)
+    {
+        return PreloadService.Instance.ClearAllAsync(unloadUnusedAssets, forceGC);
+    }
 
-        public PreloadedAssetInfo[] GetPreloadedAssetInfos()
-        {
-            return PreloadService.Instance.GetPreloadedAssetInfos();
-        }
+    public async Task ReleaseGroupAndCollectAsync(string groupKey, bool forceGC = true)
+    {
+        ReleaseGroup(groupKey);
+        await AssetBundleManager.Instance.UnloadUnusedAssetsAsync(forceGC);
+    }
 
-        public PreloadedGroupInfo[] GetPreloadedGroupInfos()
-        {
-            return PreloadService.Instance.GetPreloadedGroupInfos();
-        }
+    public LoadedBundleInfo[] GetLoadedBundleInfos()
+    {
+        return AssetBundleManager.Instance.GetLoadedBundleInfos();
+    }
+
+    public PreloadedBundleInfo[] GetPreloadedBundleInfos()
+    {
+        return PreloadService.Instance.GetPreloadedBundleInfos();
+    }
+
+    public PreloadedAssetInfo[] GetPreloadedAssetInfos()
+    {
+        return PreloadService.Instance.GetPreloadedAssetInfos();
+    }
+
+    public PreloadedGroupInfo[] GetPreloadedGroupInfos()
+    {
+        return PreloadService.Instance.GetPreloadedGroupInfos();
     }
 }

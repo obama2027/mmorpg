@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace MMORPG.Client.Core.Bundle
+public static class PreloadGroupConfigValidator
 {
-    public static class PreloadGroupConfigValidator
-    {
         [MenuItem("MMORPG/Bundle/Validate Selected PreloadGroupConfig")]
         public static void ValidateSelected()
         {
@@ -165,5 +163,4 @@ namespace MMORPG.Client.Core.Bundle
             return AssetDatabase.LoadAssetAtPath<AssetAddressConfig>(path);
         }
     }
-}
 #endif

@@ -2,11 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MMORPG.Client.Core.Bundle
+[CreateAssetMenu(fileName = "AssetAddressConfig", menuName = "MMORPG/Bundle/Asset Address Config")]
+public sealed class AssetAddressConfig : ScriptableObject
 {
-    [CreateAssetMenu(fileName = "AssetAddressConfig", menuName = "MMORPG/Bundle/Asset Address Config")]
-    public sealed class AssetAddressConfig : ScriptableObject
-    {
         [Serializable]
         public sealed class AssetEntry
         {
@@ -130,5 +128,4 @@ namespace MMORPG.Client.Core.Bundle
                 }
             }
         }
-    }
 }

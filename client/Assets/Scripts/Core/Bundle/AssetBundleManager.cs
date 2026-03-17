@@ -8,73 +8,66 @@ using UnityEngine.Networking;
 using UnityEditor;
 #endif
 
-namespace MMORPG.Client.Core.Bundle
+public enum BundleRuntimeMode
 {
-    public enum BundleRuntimeMode
-    {
         Development = 0,
         AssetBundle = 1,
     }
 
-    public sealed class AssetBundleManager
+public sealed class AssetBundleManager
+{
+    private sealed class BundleEntry
     {
-        private sealed class BundleEntry
-        {
-            public AssetBundle Bundle;
-            public string[] Dependencies;
-            public int RefCount;
+        public AssetBundle Bundle;
+        public string[] Dependencies;
+        public int RefCount;
 
-            public BundleEntry(AssetBundle bundle, string[] dependencies)
-            {
-                Bundle = bundle;
-                Dependencies = dependencies ?? Array.Empty<string>();
-                RefCount = 0;
-            }
+        public BundleEntry(AssetBundle bundle, string[] dependencies)
+        {
+            Bundle = bundle;
+            Dependencies = dependencies ?? Array.Empty<string>();
+            RefCount = 0;
         }
+    }
 
-        private static readonly AssetBundleManager s_instance = new AssetBundleManager();
-        public static AssetBundleManager Instance => s_instance;
+    private static readonly AssetBundleManager s_instance = new AssetBundleManager();
+    public static AssetBundleManager Instance => s_instance;
 
-        private readonly Dictionary<string, BundleEntry> _loadedBundles =
-            new Dictionary<string, BundleEntry>(StringComparer.OrdinalIgnoreCase);
+    private readonly Dictionary<string, BundleEntry> _loadedBundles =
+        new Dictionary<string, BundleEntry>(StringComparer.OrdinalIgnoreCase);
 
-        private readonly Dictionary<string, Task<AssetBundle>> _loadingBundles =
-            new Dictionary<string, Task<AssetBundle>>(StringComparer.OrdinalIgnoreCase);
+    private readonly Dictionary<string, Task<AssetBundle>> _loadingBundles =
+        new Dictionary<string, Task<AssetBundle>>(StringComparer.OrdinalIgnoreCase);
 
-        private string _bundleRootFolderName = "AssetBundles";
-        private BundleRuntimeMode _runtimeMode = BundleRuntimeMode.AssetBundle;
-        private AssetBundleManifest _manifest;
-        private bool _initialized;
-        private Task _initializeTask;
+    private BundleRuntimeMode _runtimeMode = BundleRuntimeMode.AssetBundle;
+    private AssetBundleManifest _manifest;
+    private bool _initialized;
+    private Task _initializeTask;
 
-        private AssetBundleManager()
+    private AssetBundleManager()
+    {
+    }
+
+    public bool IsDevelopmentMode
+    {
+        get
         {
-        }
-
-        public bool IsDevelopmentMode
-        {
-            get
-            {
 #if UNITY_EDITOR
-                return _runtimeMode == BundleRuntimeMode.Development;
+            return _runtimeMode == BundleRuntimeMode.Development;
 #else
-                return false;
-#endif
-            }
-        }
-
-        public void Configure(bool developmentMode, string bundleRootFolderName = "AssetBundles")
-        {
-            _bundleRootFolderName = string.IsNullOrWhiteSpace(bundleRootFolderName)
-                ? "AssetBundles"
-                : bundleRootFolderName.Trim();
-
-#if UNITY_EDITOR
-            _runtimeMode = developmentMode ? BundleRuntimeMode.Development : BundleRuntimeMode.AssetBundle;
-#else
-            _runtimeMode = BundleRuntimeMode.AssetBundle;
+            return false;
 #endif
         }
+    }
+
+    public void Configure(bool developmentMode)
+    {
+#if UNITY_EDITOR
+        _runtimeMode = developmentMode ? BundleRuntimeMode.Development : BundleRuntimeMode.AssetBundle;
+#else
+        _runtimeMode = BundleRuntimeMode.AssetBundle;
+#endif
+    }
 
         public void Initialize()
         {
@@ -185,6 +178,8 @@ namespace MMORPG.Client.Core.Bundle
                 BundleLogger.Warn("ReleaseBundle", "bundleName is null or empty.");
                 return;
             }
+
+            bundleName = BundlePathUtility.GetRuntimeBundleName(bundleName);
 
             if (!_loadedBundles.TryGetValue(bundleName, out var entry))
             {
@@ -319,7 +314,7 @@ namespace MMORPG.Client.Core.Bundle
         private async Task LoadManifestAsync()
         {
             var manifestBundleName = BundlePathUtility.GetRuntimePlatformName();
-            var manifestBundle = await LoadBundleFileAsync(manifestBundleName);
+            var manifestBundle = await LoadManifestBundleFileAsync();
 
             try
             {
@@ -346,6 +341,7 @@ namespace MMORPG.Client.Core.Bundle
 
         private async Task<AssetBundle> AcquireBundleAsync(string bundleName)
         {
+            bundleName = BundlePathUtility.GetRuntimeBundleName(bundleName);
             await EnsureManifestLoadedAsync();
 
             if (_loadedBundles.TryGetValue(bundleName, out var loadedEntry))
@@ -416,6 +412,7 @@ namespace MMORPG.Client.Core.Bundle
 
         private string[] GetDependencies(string bundleName)
         {
+            bundleName = BundlePathUtility.GetRuntimeBundleName(bundleName);
             if (_manifest == null)
             {
                 return Array.Empty<string>();
@@ -426,7 +423,7 @@ namespace MMORPG.Client.Core.Bundle
 
         private async Task<AssetBundle> LoadBundleFileAsync(string bundleName)
         {
-            var path = BundlePathUtility.GetBundleFilePath(_bundleRootFolderName, bundleName);
+            var path = BundlePathUtility.GetBundleFilePath(string.Empty, bundleName);
 
 #if UNITY_ANDROID && !UNITY_EDITOR
             using (var request = UnityWebRequestAssetBundle.GetAssetBundle(path))
@@ -466,6 +463,48 @@ namespace MMORPG.Client.Core.Bundle
 #endif
         }
 
+        private async Task<AssetBundle> LoadManifestBundleFileAsync()
+        {
+            var path = BundlePathUtility.GetManifestFilePath(string.Empty);
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+            using (var request = UnityWebRequestAssetBundle.GetAssetBundle(path))
+            {
+                var operation = request.SendWebRequest();
+                while (!operation.isDone)
+                {
+                    await Task.Yield();
+                }
+
+                if (request.result != UnityWebRequest.Result.Success)
+                {
+                    throw BundleException.ManifestLoadFailed($"path={path}, error={request.error}");
+                }
+
+                var bundle = DownloadHandlerAssetBundle.GetContent(request);
+                if (bundle == null)
+                {
+                    throw BundleException.ManifestLoadFailed($"path={path}, bundle is null");
+                }
+
+                return bundle;
+            }
+#else
+            var request = AssetBundle.LoadFromFileAsync(path);
+            while (!request.isDone)
+            {
+                await Task.Yield();
+            }
+
+            if (request.assetBundle == null)
+            {
+                throw BundleException.ManifestLoadFailed($"path={path}");
+            }
+
+            return request.assetBundle;
+#endif
+        }
+
 #if UNITY_EDITOR
         private T LoadFromEditor<T>(AssetAddress address) where T : UnityEngine.Object
         {
@@ -483,5 +522,4 @@ namespace MMORPG.Client.Core.Bundle
             return asset;
         }
 #endif
-    }
 }

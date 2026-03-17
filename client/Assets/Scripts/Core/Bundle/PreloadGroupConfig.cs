@@ -1,11 +1,9 @@
 using System;
 using UnityEngine;
 
-namespace MMORPG.Client.Core.Bundle
+[CreateAssetMenu(fileName = "PreloadGroupConfig", menuName = "MMORPG/Bundle/Preload Group Config")]
+public sealed class PreloadGroupConfig : ScriptableObject
 {
-    [CreateAssetMenu(fileName = "PreloadGroupConfig", menuName = "MMORPG/Bundle/Preload Group Config")]
-    public sealed class PreloadGroupConfig : ScriptableObject
-    {
         [Serializable]
         public sealed class GroupEntry
         {
@@ -49,5 +47,4 @@ namespace MMORPG.Client.Core.Bundle
 
             return false;
         }
-    }
 }

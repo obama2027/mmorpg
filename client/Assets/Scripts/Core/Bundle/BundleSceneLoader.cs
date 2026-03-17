@@ -7,10 +7,8 @@ using UnityEngine.SceneManagement;
 using UnityEditor.SceneManagement;
 #endif
 
-namespace MMORPG.Client.Core.Bundle
+public sealed class BundleSceneLoader
 {
-    public sealed class BundleSceneLoader
-    {
         private sealed class LoadedSceneEntry
         {
             public string BundleName;
@@ -209,5 +207,4 @@ namespace MMORPG.Client.Core.Bundle
             AssetBundleManager.Instance.ReleaseBundle(entry.BundleName);
             BundleLogger.Info("SceneUnloaded", $"scene={scene.path} release bundle={entry.BundleName}");
         }
-    }
 }

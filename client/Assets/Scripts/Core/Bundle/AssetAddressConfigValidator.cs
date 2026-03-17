@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace MMORPG.Client.Core.Bundle
+public static class AssetAddressConfigValidator
 {
-    public static class AssetAddressConfigValidator
-    {
         [MenuItem("MMORPG/Bundle/Validate Selected AssetAddressConfig")]
         public static void ValidateSelected()
         {
@@ -138,5 +136,4 @@ namespace MMORPG.Client.Core.Bundle
             }
         }
     }
-}
 #endif
