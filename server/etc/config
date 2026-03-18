@@ -1,0 +1,14 @@
+root = "./skynet/"
+thread = 4
+harbor = 0
+
+start = "main"
+bootstrap = "snlua bootstrap"
+
+luaservice = "./service/?.lua;" .. root .. "service/?.lua"
+lualoader = root .. "lualib/loader.lua"
+lua_path = "./lualib/?.lua;./3rd/lua-protobuf/?.lua;" .. root .. "lualib/?.lua"
+lua_cpath = "./3rd/lua-protobuf/?.so;" .. root .. "luaclib/?.so"
+cpath = root .. "cservice/?.so"
+
+proto_dir = "../proto"

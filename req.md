@@ -26,4 +26,26 @@
 3.mainfest就按BundlePathUtility.GetRuntimePlatformName()命名
 
 
-1.
+
+帮我开发网络模块
+1.代码落地到client/Assets/Scripts/Core/Net/Socket
+2.开发socket模块，socket支持同时多个链接，支持ipv4/ipv6, 支持tcp/udp协议
+3.socket收发协议不阻塞主线程
+4.处理拆包粘包问题，每个协议约定前4个字节为包头，用来读取协议长度
+5.处理断线重连和异常问题
+6.注意内存问题，防止泄露和内存安全问题
+7.用protobuf处理协议
+
+
+再server目录下，帮我实现一个简易的服务器，
+1.基于skynet,可以通过socket tcp链接，协议解析用protobuf,  
+2.支持多个客户端链接
+3.先链接网关再链接游戏服务器
+
+
+
+
+1.用 WSL2
+2..proto 文件客户端和服务端共享
+3.登录先不用验证，有流程，直接放行就可以
+4.完成功能后叫我怎么再我的电脑上部署和启动服务器

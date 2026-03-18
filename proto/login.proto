@@ -1,0 +1,13 @@
+syntax = "proto3";
+package login;
+
+message C2S_Login {
+    string username = 1;
+}
+
+message S2C_Login {
+    int32 result = 1;
+    string token = 2;
+    string game_host = 3;
+    int32 game_port = 4;
+}

@@ -1,0 +1,18 @@
+syntax = "proto3";
+package game;
+
+message C2S_EnterGame {
+    string token = 1;
+}
+
+message S2C_EnterGame {
+    int32 result = 1;
+    int64 player_id = 2;
+    string player_name = 3;
+}
+
+message C2S_Heartbeat {
+}
+
+message S2C_Heartbeat {
+}
