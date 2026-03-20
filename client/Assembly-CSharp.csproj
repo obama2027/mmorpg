@@ -60,6 +60,7 @@
     <Analyzer Include="D:\unity\Editor\2022.3.62t5\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Core\Net\Download\DownloadResult.cs" />
     <Compile Include="Assets\Scripts\Launch.cs" />
     <Compile Include="Assets\Scripts\Core\Bundle\BundleDebugModels.cs" />
     <Compile Include="Assets\Scripts\Core\Bundle\AssetAddressConfigValidator.cs" />
@@ -69,11 +70,13 @@
     <Compile Include="Assets\Scripts\Core\Bundle\PreloadGroupConfigValidator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
+    <Compile Include="Assets\Scripts\Core\Net\Http\UnityHttpClient.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
     <Compile Include="Assets\Scripts\Core\Net\Socket\SocketService.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
+    <Compile Include="Assets\Scripts\Core\Net\Http\HttpRequestOptions.cs" />
     <Compile Include="Assets\Scripts\Core\Bundle\GameAssetService.cs" />
     <Compile Include="Assets\Scripts\Core\Bundle\AssetAddress.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
@@ -85,10 +88,14 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
+    <Compile Include="Assets\Scripts\Core\Net\Download\DownloadErrorCode.cs" />
     <Compile Include="Assets\Scripts\Core\Bundle\BundleErrorCode.cs" />
+    <Compile Include="Assets\Scripts\Core\Net\Download\DownloadOptions.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
+    <Compile Include="Assets\Scripts\Core\Net\Http\IHttpClient.cs" />
+    <Compile Include="Assets\Scripts\HttpServerExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
@@ -107,10 +114,14 @@
     <Compile Include="Assets\Scripts\Core\Bundle\AssetBundleBuilder.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\Scripts\BuildConfig.cs" />
+    <Compile Include="Assets\Scripts\Core\Net\Http\HttpResponseData.cs" />
+    <Compile Include="Assets\Scripts\Core\Net\Http\HttpModuleException.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
+    <Compile Include="Assets\Scripts\Core\Net\Http\HttpErrorCode.cs" />
     <Compile Include="Assets\Scripts\Proto\Login.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
+    <Compile Include="Assets\Scripts\Core\Net\Download\DownloadModuleException.cs" />
     <Compile Include="Assets\Scripts\Proto\Game.cs" />
     <Compile Include="Assets\Scripts\Core\Bundle\LocalBundlePackageService.cs" />
     <Compile Include="Assets\Scripts\Core\Net\Socket\SocketMainThreadDispatcher.cs" />
@@ -120,10 +131,14 @@
     <Compile Include="Assets\Scripts\Core\Net\Socket\SocketPacketFramer.cs" />
     <Compile Include="Assets\Scripts\Core\Net\Socket\SocketModuleException.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
+    <Compile Include="Assets\Scripts\Core\Net\Download\NetworkDownloader.cs" />
+    <Compile Include="Assets\Scripts\Core\Net\Http\HttpRetryPolicy.cs" />
+    <Compile Include="Assets\Scripts\Core\Net\Download\DownloadLogger.cs" />
     <Compile Include="Assets\Scripts\Core\Bundle\BundleSceneLoader.cs" />
     <Compile Include="Assets\Scripts\Core\Bundle\IBundlePackageService.cs" />
     <Compile Include="Assets\Scripts\Core\Net\Socket\SocketLogger.cs" />
     <Compile Include="Assets\Scripts\Core\Bundle\AssetAddressConfig.cs" />
+    <Compile Include="Assets\Scripts\Core\Net\Http\HttpLogger.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <Compile Include="Assets\Scripts\Core\Net\Socket\SocketOpcodeDispatcher.cs" />
     <Compile Include="Assets\Scripts\Core\Bundle\PreloadService.cs" />
@@ -502,6 +517,10 @@
     </Reference>
     <Reference Include="Google.Protobuf">
       <HintPath>Assets\Plugins\Protobuf\Google.Protobuf.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe">
+      <HintPath>Assets\Plugins\Protobuf\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
