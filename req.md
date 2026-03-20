@@ -36,11 +36,21 @@
 6.注意内存问题，防止泄露和内存安全问题
 7.用protobuf处理协议
 
+帮我开发http和网络下载模块，代码落地到代码落地到client/Assets/Scripts/Core/Net
+1.添加http网络请求，请求失败默认重试3次
+2.添加网络下载模块，用来下载assetsbundle等东西
+3.处理异常情况，例如下载失败重试几次，还有其他异常一起处理一下
+
 
 再server目录下，帮我实现一个简易的服务器，
 1.基于skynet,可以通过socket tcp链接，协议解析用protobuf,  
 2.支持多个客户端链接
 3.先链接网关再链接游戏服务器
+
+开发建议版本http服务器，目录再phpServer
+1.开发语言用php
+2.接受http请求，返回结果
+3.支持get和post请求
 
 
 
