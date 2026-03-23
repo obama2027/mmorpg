@@ -59,3 +59,21 @@
 2..proto 文件客户端和服务端共享
 3.登录先不用验证，有流程，直接放行就可以
 4.完成功能后叫我怎么再我的电脑上部署和启动服务器
+
+
+
+实现整个游戏启动得流程
+1.游戏客户端代码分为Launch.dll和Game.dll,Launch.dll存放热更和网络下载代码，Game.dll存放所有游戏代码
+2.资源服暂时放在本地，资源根目录位phpServer/Res
+3.资源服目录参考test/resServer得目录结构，Android得version.txt存放游戏最新版本号,区分平台版本，例如ios,Android
+4.
+
+添加工具Tools/Build Res, 点击打开弹出一个editor界面，界面上面是一个列表，最下面是Build按钮，列表单项前面是复选框，中间是文字，最后是Run按钮
+1.列表里面暂时有3项，update proto，update dll, update res
+2.点update proto后面得run按钮调用生成协议功能
+3.点update dll后面得run按钮调用HyBirdCLR的CompileDll->ActiveBuildTarget,并将生成好的Launch.dll和Game.dll复制到StreamingAssets/plamtform下
+4.点update res后面得run按钮调用MMORPG->Bunlde->BunldeCurrentTarget
+5.点最下面得build按钮则按列表选中得单项，按顺序执行
+
+
+游戏启动时如果不在editor状态，或者是再editor状态但buildconfig.editorDevelopmentMode=true, 则判断persistentDataPath路径下有没有version.json, streamingassets/platform下的文件全部复制到persistentDataPath下，并给出log打印

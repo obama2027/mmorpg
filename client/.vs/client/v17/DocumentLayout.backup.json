@@ -3,16 +3,40 @@
   "WorkspaceRootPath": "D:\\work\\AIProject\\mmorpg\\client\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\work\\AIProject\\mmorpg\\client\\Assets\\Scripts\\Launch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\Launch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2859A56-AB4A-51F9-60BB-1B6FC96E8C70}|Assembly-CSharp.csproj|d:\\work\\aiproject\\mmorpg\\client\\assets\\scripts\\launch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2859A56-AB4A-51F9-60BB-1B6FC96E8C70}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\launch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6106C4A1-3372-BAD0-CF50-32FD08E23326}|Main.Editor.csproj|D:\\work\\AIProject\\mmorpg\\client\\assets\\editor\\assetbundlebuilder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6106C4A1-3372-BAD0-CF50-32FD08E23326}|Main.Editor.csproj|solutionrelative:assets\\editor\\assetbundlebuilder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B23B64EB-DC82-3843-B628-F5D3B5E456CB}|Game.csproj|D:\\work\\AIProject\\mmorpg\\client\\assets\\scripts\\game\\core\\bundle\\gameassetservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B23B64EB-DC82-3843-B628-F5D3B5E456CB}|Game.csproj|solutionrelative:assets\\scripts\\game\\core\\bundle\\gameassetservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\work\\AIProject\\mmorpg\\client\\Assets\\Scripts\\Main\\Core\\Bundle\\GameAssetService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\Main\\Core\\Bundle\\GameAssetService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2859A56-AB4A-51F9-60BB-1B6FC96E8C70}|Assembly-CSharp.csproj|D:\\work\\AIProject\\mmorpg\\client\\assets\\scripts\\httpserverexample.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2859A56-AB4A-51F9-60BB-1B6FC96E8C70}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\httpserverexample.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\work\\AIProject\\mmorpg\\client\\Assets\\Scripts\\Core\\Net\\Socket\\SocketLogger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\Core\\Net\\Socket\\SocketLogger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\work\\AIProject\\mmorpg\\client\\Assets\\Scripts\\Core\\Bundle\\AssetAddress.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\Core\\Bundle\\AssetAddress.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\work\\AIProject\\mmorpg\\client\\Assets\\Scripts\\BuildConfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\BuildConfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\work\\AIProject\\mmorpg\\client\\Assets\\Scripts\\Core\\Bundle\\AssetAddress.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\Core\\Bundle\\AssetAddress.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\work\\AIProject\\mmorpg\\client\\Assets\\Scripts\\Launch\\Net\\Http\\IHttpClient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\Launch\\Net\\Http\\IHttpClient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,8 +46,78 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 6,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "GameAssetService.cs",
+              "DocumentMoniker": "D:\\work\\AIProject\\mmorpg\\client\\Assets\\Scripts\\Game\\Core\\Bundle\\GameAssetService.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Game\\Core\\Bundle\\GameAssetService.cs",
+              "ToolTip": "D:\\work\\AIProject\\mmorpg\\client\\Assets\\Scripts\\Game\\Core\\Bundle\\GameAssetService.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Game\\Core\\Bundle\\GameAssetService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-23T14:53:49.032Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AssetBundleBuilder.cs",
+              "DocumentMoniker": "D:\\work\\AIProject\\mmorpg\\client\\Assets\\Editor\\AssetBundleBuilder.cs",
+              "RelativeDocumentMoniker": "Assets\\Editor\\AssetBundleBuilder.cs",
+              "ToolTip": "D:\\work\\AIProject\\mmorpg\\client\\Assets\\Editor\\AssetBundleBuilder.cs",
+              "RelativeToolTip": "Assets\\Editor\\AssetBundleBuilder.cs",
+              "ViewState": "AgIAAIoAAAAAAAAAAAAIwJsAAABXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-23T14:49:44.762Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "GameAssetService.cs",
+              "DocumentMoniker": "D:\\work\\AIProject\\mmorpg\\client\\Assets\\Scripts\\Main\\Core\\Bundle\\GameAssetService.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Main\\Core\\Bundle\\GameAssetService.cs",
+              "ToolTip": "D:\\work\\AIProject\\mmorpg\\client\\Assets\\Scripts\\Main\\Core\\Bundle\\GameAssetService.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Main\\Core\\Bundle\\GameAssetService.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-22T15:13:35.084Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "HttpServerExample.cs",
+              "DocumentMoniker": "D:\\work\\AIProject\\mmorpg\\client\\Assets\\Scripts\\HttpServerExample.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\HttpServerExample.cs",
+              "ToolTip": "D:\\work\\AIProject\\mmorpg\\client\\Assets\\Scripts\\HttpServerExample.cs",
+              "RelativeToolTip": "Assets\\Scripts\\HttpServerExample.cs",
+              "ViewState": "AgIAAEcAAAAAAAAAAAAswIAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-22T15:09:45.509Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "IHttpClient.cs",
+              "DocumentMoniker": "D:\\work\\AIProject\\mmorpg\\client\\Assets\\Scripts\\Launch\\Net\\Http\\IHttpClient.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Launch\\Net\\Http\\IHttpClient.cs",
+              "ToolTip": "D:\\work\\AIProject\\mmorpg\\client\\Assets\\Scripts\\Launch\\Net\\Http\\IHttpClient.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Launch\\Net\\Http\\IHttpClient.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-22T15:09:03.867Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "SocketLogger.cs",
+              "DocumentMoniker": "D:\\work\\AIProject\\mmorpg\\client\\Assets\\Scripts\\Core\\Net\\Socket\\SocketLogger.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Core\\Net\\Socket\\SocketLogger.cs",
+              "ToolTip": "D:\\work\\AIProject\\mmorpg\\client\\Assets\\Scripts\\Core\\Net\\Socket\\SocketLogger.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Core\\Net\\Socket\\SocketLogger.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-18T13:20:18.941Z"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -32,33 +126,31 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\Launch.cs",
               "ToolTip": "D:\\work\\AIProject\\mmorpg\\client\\Assets\\Scripts\\Launch.cs",
               "RelativeToolTip": "Assets\\Scripts\\Launch.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACUAAAA7AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-18T13:06:53.81Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 7,
               "Title": "BuildConfig.cs",
               "DocumentMoniker": "D:\\work\\AIProject\\mmorpg\\client\\Assets\\Scripts\\BuildConfig.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\BuildConfig.cs",
               "ToolTip": "D:\\work\\AIProject\\mmorpg\\client\\Assets\\Scripts\\BuildConfig.cs",
               "RelativeToolTip": "Assets\\Scripts\\BuildConfig.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwBQAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-17T13:09:01.56Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-17T13:09:01.56Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "AssetAddress.cs",
               "DocumentMoniker": "D:\\work\\AIProject\\mmorpg\\client\\Assets\\Scripts\\Core\\Bundle\\AssetAddress.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Core\\Bundle\\AssetAddress.cs",
               "ToolTip": "D:\\work\\AIProject\\mmorpg\\client\\Assets\\Scripts\\Core\\Bundle\\AssetAddress.cs",
               "RelativeToolTip": "Assets\\Scripts\\Core\\Bundle\\AssetAddress.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-16T14:14:08.414Z"
             }

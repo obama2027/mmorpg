@@ -8,9 +8,8 @@ public static class ProtocBuild
 {
     private const string ProtocPath = "Tools/protoc/protoc.exe";
     private const string ProtoDir = "../proto";
-    private const string CSharpOutDir = "Assets/Scripts/Proto";
+    private const string CSharpOutDir = "Assets/Scripts/Game/Proto";
 
-    [MenuItem("MMORPG/Generate Protocol")]
     public static void GenerateAll()
     {
         var protocFullPath = Path.GetFullPath(Path.Combine(Application.dataPath, "..", ProtocPath));
