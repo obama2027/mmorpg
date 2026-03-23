@@ -1,0 +1,43 @@
+{
+    "Platform": "Android",
+    "Version": "1.0.1",
+    "BuildTime": "2026-03-23T13:08:54.5607022Z",
+    "Dlls": [
+        {
+            "Path": "launch.dll.bytes",
+            "Md5": "34793c88d11d3c2a81315e12954ad3d8",
+            "Size": 24064
+        },
+        {
+            "Path": "game.dll.bytes",
+            "Md5": "5d5135c2890b909073ee1dbc5e5cbbe0",
+            "Size": 83456
+        }
+    ],
+    "Bundles": [
+        {
+            "Path": "gameassets_scenes_main.bundle",
+            "Md5": "0294588c815a11f3bfb211e02af409f4",
+            "Size": 683611,
+            "Group": "Main"
+        },
+        {
+            "Path": "gameassets_scenes_pre.bundle",
+            "Md5": "02f89e74191e5cd76c821831df2640dd",
+            "Size": 74726,
+            "Group": "Main"
+        },
+        {
+            "Path": "gameassets_ui_login.bundle",
+            "Md5": "70a9852a0ff43ab2205fbdefc9606bc0",
+            "Size": 4696,
+            "Group": "Main"
+        },
+        {
+            "Path": "gameassets_ui_main2.bundle",
+            "Md5": "6937c4d85422fd18ad31f87518467450",
+            "Size": 395630,
+            "Group": "Main"
+        }
+    ]
+}

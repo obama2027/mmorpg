@@ -14,10 +14,15 @@ $routes = [
     'GET' => [
         '/api/config' => 'config.php',
         '/api/echo'   => 'echo.php',
+        '/api/getNextResVersion' => 'getNextResVersion.php',
+        '/api/getResVersion' => 'getResVersion.php',
+        '/api/getVersionJson' => 'getVersionJson.php',
+        '/api/downloadResFile' => 'downloadResFile.php',
     ],
     'POST' => [
         '/api/echo'  => 'echo.php',
         '/api/login' => 'login.php',
+        '/api/uploadRes' => 'uploadRes.php',
     ],
 ];
 

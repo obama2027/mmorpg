@@ -1,0 +1,20 @@
+ManifestFileVersion: 0
+CRC: 606575432
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: gameassets_ui_login.bundle
+      Dependencies: {}
+    Info_1:
+      Name: gameassets_scenes_main.bundle
+      Dependencies:
+        Dependency_0: gameassets_ui_login.bundle
+    Info_2:
+      Name: gameassets_scenes_pre.bundle
+      Dependencies: {}
+    Info_3:
+      Name: gameassets_ui_main2.bundle
+      Dependencies: {}
+    Info_4:
+      Name: gameassets_ui_plaza.bundle
+      Dependencies: {}
