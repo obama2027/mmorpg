@@ -8,9 +8,10 @@ using UnityEngine.SceneManagement;
 using UnityEditor;
 #endif
 
-public sealed class GameAssetService : MonoBehaviour
+public sealed class GameAssetService : MonoSingle<GameAssetService>
 {
-    public static GameAssetService Instance { get; private set; }
+    public static event Action OnReady;
+    public bool IsReady { get; private set; }
 
     [Header("Config")]
     //[SerializeField] private BuildConfig _buildConfig;
@@ -28,38 +29,25 @@ public sealed class GameAssetService : MonoBehaviour
     public AssetAddressConfig AddressConfig => _addressConfig;
     public PreloadGroupConfig PreloadGroupConfig => _preloadGroupConfig;
 
-        private async void Awake()
-        {
-            if (Instance != null && Instance != this)
-            {
-                Destroy(gameObject);
-                return;
-            }
-
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-
+    private bool _isInt = false;
+    public override void Init()
+    {
+        if(_isInt)
+            return;
+        _isInt = true;
         BundleLogger.EnableInfoLog = _enableBundleInfoLog;
         BundleLogger.EnableWarningLog = _enableBundleWarningLog;
         BundleLogger.EnableErrorLog = _enableBundleErrorLog;
 
-        AssetBundleManager.Instance.Configure(ShouldUseEditorDevelopmentMode());
-        await AssetBundleManager.Instance.InitializeAsync();
+        AssetBundleManager.Instance.Configure(ConfigBridge.GetIsDebug());
+        // await AssetBundleManager.Instance.InitializeAsync();
 
-        _packageService = new LocalBundlePackageService();
-        PreloadService.Instance.Initialize(_addressConfig, _preloadGroupConfig, _packageService);
+        // _packageService = new LocalBundlePackageService();
+        // PreloadService.Instance.Initialize(_addressConfig, _preloadGroupConfig, _packageService);
 
+        IsReady = true;
+        OnReady?.Invoke();
         BundleLogger.Info("GameAssetService", "initialized");
-    }
-
-    private bool ShouldUseEditorDevelopmentMode()
-    {
-#if UNITY_EDITOR
-        //var buildConfig = ResolveBuildConfig();
-        return true;
-#else
-        return false;
-#endif
     }
 
 #if UNITY_EDITOR
@@ -92,16 +80,38 @@ public sealed class GameAssetService : MonoBehaviour
         return AssetBundleManager.Instance.LoadAssetAsync<T>(address);
     }
 
+    public AssetHandle<T> LoadAssetByPath<T>(string bundlePath, string assetPath) where T : UnityEngine.Object
+    {
+        var address = BuildAddressFromBundlePathAndAssetPath(bundlePath, assetPath);
+        return AssetBundleManager.Instance.LoadAsset<T>(address);
+    }
+
+    public Task<AssetHandle<T>> LoadAssetByPathAsync<T>(string bundlePath, string assetPath) where T : UnityEngine.Object
+    {
+        var address = BuildAddressFromBundlePathAndAssetPath(bundlePath, assetPath);
+        return AssetBundleManager.Instance.LoadAssetAsync<T>(address);
+    }
+
     public Task LoadSceneAsync(string key, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
     {
         var address = _addressConfig.GetSceneAddress(key);
         return BundleSceneLoader.Instance.LoadSceneAsync(address, loadSceneMode);
     }
 
+    public Task LoadSceneByPathAsync(string sceneAssetPath, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
+    {
+        return BundleSceneLoader.Instance.LoadSceneByPathAsync(sceneAssetPath, loadSceneMode);
+    }
+
     public Task UnloadSceneAsync(string key, bool unloadUnusedAssets = true, bool forceGC = false)
     {
         var address = _addressConfig.GetSceneAddress(key);
         return BundleSceneLoader.Instance.UnloadSceneAsync(address, unloadUnusedAssets, forceGC);
+    }
+
+    public Task UnloadSceneByPathAsync(string sceneAssetPath, bool unloadUnusedAssets = true, bool forceGC = false)
+    {
+        return BundleSceneLoader.Instance.UnloadSceneByPathAsync(sceneAssetPath, unloadUnusedAssets, forceGC);
     }
 
     public Task PreloadBundleAsync(string bundleName)
@@ -179,5 +189,29 @@ public sealed class GameAssetService : MonoBehaviour
     public PreloadedGroupInfo[] GetPreloadedGroupInfos()
     {
         return PreloadService.Instance.GetPreloadedGroupInfos();
+    }
+
+    private static AssetAddress BuildAddressFromBundlePathAndAssetPath(string bundlePath, string assetPath)
+    {
+        if (string.IsNullOrWhiteSpace(bundlePath))
+        {
+            throw BundleException.InvalidAddress("bundlePath is null or empty.");
+        }
+
+        if (string.IsNullOrWhiteSpace(assetPath))
+        {
+            throw BundleException.InvalidAddress("assetPath is null or empty.");
+        }
+
+        var normalizedBundlePath = bundlePath.Replace("\\", "/").Trim('/');
+        var normalizedAssetPath = assetPath.Replace("\\", "/").Trim('/');
+        var fullAssetPath = BundlePathUtility.BuildAssetPath(normalizedBundlePath, normalizedAssetPath);
+        if (string.IsNullOrWhiteSpace(fullAssetPath))
+        {
+            throw BundleException.InvalidAddress($"Invalid bundlePath or assetPath: {bundlePath}, {assetPath}");
+        }
+
+        var bundleName = normalizedBundlePath.ToLowerInvariant().Replace("/", "_");
+        return new AssetAddress(bundleName, fullAssetPath, fullAssetPath);
     }
 }

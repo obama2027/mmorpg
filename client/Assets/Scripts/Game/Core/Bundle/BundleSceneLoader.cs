@@ -88,6 +88,23 @@ public sealed class BundleSceneLoader
             }
         }
 
+        public Task LoadSceneByPathAsync(string sceneAssetPath, LoadSceneMode loadSceneMode = LoadSceneMode.Single)
+        {
+            if (string.IsNullOrWhiteSpace(sceneAssetPath))
+            {
+                throw BundleException.InvalidAddress("sceneAssetPath is null or empty.");
+            }
+
+            var bundleName = BundlePathUtility.GetBundleNameFromAssetPath(sceneAssetPath);
+            if (string.IsNullOrWhiteSpace(bundleName))
+            {
+                throw BundleException.InvalidAddress($"Cannot infer bundleName from scene path: {sceneAssetPath}");
+            }
+
+            var address = new SceneAddress(bundleName, sceneAssetPath, sceneAssetPath);
+            return LoadSceneAsync(address, loadSceneMode);
+        }
+
         public async Task UnloadSceneAsync(SceneAddress address, bool unloadUnusedAssets = true, bool forceGC = false)
         {
             ValidateAddress(address);
@@ -149,6 +166,23 @@ public sealed class BundleSceneLoader
             }
 
             BundleLogger.Info("UnloadSceneAsync", $"scene={address.ScenePath}");
+        }
+
+        public Task UnloadSceneByPathAsync(string sceneAssetPath, bool unloadUnusedAssets = true, bool forceGC = false)
+        {
+            if (string.IsNullOrWhiteSpace(sceneAssetPath))
+            {
+                throw BundleException.InvalidAddress("sceneAssetPath is null or empty.");
+            }
+
+            var bundleName = BundlePathUtility.GetBundleNameFromAssetPath(sceneAssetPath);
+            if (string.IsNullOrWhiteSpace(bundleName))
+            {
+                throw BundleException.InvalidAddress($"Cannot infer bundleName from scene path: {sceneAssetPath}");
+            }
+
+            var address = new SceneAddress(bundleName, sceneAssetPath, sceneAssetPath);
+            return UnloadSceneAsync(address, unloadUnusedAssets, forceGC);
         }
 
         private void Initialize()

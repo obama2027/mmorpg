@@ -13,8 +13,7 @@ public static class BaseDllUpdater
 {
     private const string VersionJsonFileName = "version.json";
     private const string BaseDllFileName = "base.dll.bytes";
-    
-    public static string ResServerBaseUrl { get; set; } = "http://127.0.0.1:8080";
+    private const string DefaultResServerBaseUrl = "http://localhost:8080";
 
     public static IEnumerator CheckAndUpdateIfNeeded()
     {
@@ -93,7 +92,7 @@ public static class BaseDllUpdater
             yield break;
         }
 
-        var downloadUrl = $"{ResServerBaseUrl.TrimEnd('/')}/api/downloadResFile?platform={Uri.EscapeDataString(platformName)}&version={Uri.EscapeDataString(serverVersion)}&file={Uri.EscapeDataString(serverBaseEntry.Path)}";
+        var downloadUrl = $"{DefaultResServerBaseUrl.TrimEnd('/')}/api/downloadResFile?platform={Uri.EscapeDataString(platformName)}&version={Uri.EscapeDataString(serverVersion)}&file={Uri.EscapeDataString(serverBaseEntry.Path)}";
         var destPath = Path.Combine(persistentPath, serverBaseEntry.Path.Replace("/", Path.DirectorySeparatorChar.ToString()));
 
         var downloadOk = false;
@@ -144,7 +143,7 @@ public static class BaseDllUpdater
 
     private static IEnumerator GetServerVersion(string platformName, Action<string> onSuccess, Action<string> onError)
     {
-        var url = $"{ResServerBaseUrl.TrimEnd('/')}/api/getResVersion?platform={Uri.EscapeDataString(platformName)}";
+        var url = $"{DefaultResServerBaseUrl.TrimEnd('/')}/api/getResVersion?platform={Uri.EscapeDataString(platformName)}";
         using (var request = UnityWebRequest.Get(url))
         {
             yield return request.SendWebRequest();
@@ -167,7 +166,7 @@ public static class BaseDllUpdater
 
     private static IEnumerator GetServerVersionJson(string platformName, string version, Action<string> onSuccess, Action<string> onError)
     {
-        var url = $"{ResServerBaseUrl.TrimEnd('/')}/api/getVersionJson?platform={Uri.EscapeDataString(platformName)}&version={Uri.EscapeDataString(version)}";
+        var url = $"{DefaultResServerBaseUrl.TrimEnd('/')}/api/getVersionJson?platform={Uri.EscapeDataString(platformName)}&version={Uri.EscapeDataString(version)}";
         using (var request = UnityWebRequest.Get(url))
         {
             yield return request.SendWebRequest();

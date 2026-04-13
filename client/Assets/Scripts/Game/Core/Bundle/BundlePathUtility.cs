@@ -64,6 +64,44 @@ public static class BundlePathUtility
         return normalizedBundleName.Replace('/', BundleNameSeparator) + BundleFileExtension;
     }
 
+    public static string GetBundleNameFromAssetPath(string assetPath)
+    {
+        if (string.IsNullOrWhiteSpace(assetPath))
+        {
+            return string.Empty;
+        }
+
+        var normalized = assetPath.Replace("\\", "/").Trim();
+        if (!normalized.StartsWith("Assets/", StringComparison.OrdinalIgnoreCase))
+        {
+            return string.Empty;
+        }
+
+        var lastSlashIndex = normalized.LastIndexOf('/');
+        if (lastSlashIndex <= "Assets".Length)
+        {
+            return string.Empty;
+        }
+
+        // Bundle naming rule follows editor side auto naming:
+        // directory path under Assets/, lower-case, '/' => '_'
+        var dirPath = normalized.Substring(0, lastSlashIndex);
+        var relativeDir = dirPath.Substring("Assets/".Length).Trim('/');
+        return relativeDir.ToLowerInvariant().Replace('/', BundleNameSeparator);
+    }
+
+    public static string BuildAssetPath(string bundlePath, string assetPath)
+    {
+        if (string.IsNullOrWhiteSpace(bundlePath) || string.IsNullOrWhiteSpace(assetPath))
+        {
+            return string.Empty;
+        }
+
+        var normalizedBundlePath = bundlePath.Replace("\\", "/").Trim('/');
+        var normalizedAssetPath = assetPath.Replace("\\", "/").Trim('/');
+        return $"Assets/{normalizedBundlePath}/{normalizedAssetPath}";
+    }
+
     private static string Normalize(string path)
     {
         return path.Replace("\\", "/");

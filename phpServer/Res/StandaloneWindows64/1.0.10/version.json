@@ -1,0 +1,49 @@
+{
+    "Platform": "StandaloneWindows64",
+    "Version": "1.0.10",
+    "BuildTime": "2026-03-24T14:18:47.2936440Z",
+    "Dlls": [
+        {
+            "Path": "base.dll.bytes",
+            "Md5": "6d28447d26cc036fe19feaf697a3a489",
+            "Size": 22528
+        },
+        {
+            "Path": "game.dll.bytes",
+            "Md5": "06d309c891c6f02771f66e097991f388",
+            "Size": 102400
+        }
+    ],
+    "Bundles": [
+        {
+            "Path": "gameassets_scenes_login.bundle",
+            "Md5": "6cd280ba64219e9c1a68e55e97e3b732",
+            "Size": 120063,
+            "Group": "Main"
+        },
+        {
+            "Path": "gameassets_scenes_main.bundle",
+            "Md5": "06401476c6116894ab58a33230a572b2",
+            "Size": 123224,
+            "Group": "Main"
+        },
+        {
+            "Path": "gameassets_ui_login.bundle",
+            "Md5": "4fd0a611e33e0836e38c2926159667b0",
+            "Size": 4696,
+            "Group": "Main"
+        },
+        {
+            "Path": "gameassets_ui_main2.bundle",
+            "Md5": "fc12f3f6b79d6f4138f04cc04f3fad6c",
+            "Size": 112993,
+            "Group": "Main"
+        },
+        {
+            "Path": "gameassets_ui_plaza.bundle",
+            "Md5": "44a962a858941db950723fe6bb891bdb",
+            "Size": 4698,
+            "Group": "Main"
+        }
+    ]
+}

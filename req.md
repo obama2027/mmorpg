@@ -77,3 +77,16 @@
 
 
 游戏启动时如果不在editor状态，或者是再editor状态但buildconfig.editorDevelopmentMode=true, 则判断persistentDataPath路径下有没有version.json, streamingassets/platform下的文件全部复制到persistentDataPath下，并给出log打印
+
+
+
+开发UI系统
+1.加载界面接口类似于UIManager.instance.open(UIType.Main,UILayer.FullScreen,可传参数)，这一句的功能是把哪个界面加载到哪个层级之下
+2.通过调用GameAssetServer.LoadAssetByPathAsync去加载GameAssets/UI下的模块界面，例如GameAssets/UI/Login/Prefab/Login.prefab进行加载登录界面
+3.UI模块实现代码采用MVC模式，
+
+4.加入UI界面的生命周期函数，OnCreate表示加载好prefab回调，OnShow逻辑上打开界面，OnHide隐藏界面，OnDestroy销毁界面，加载完界面应该先调用OnCreate然后调用OnShow，关闭界面调用OnHide, 销毁界面调用OnDestroy
+5.UIManager要有接口可以关闭界面，关闭时可选择界面时销毁还是只是隐藏，只是隐藏调用OnHide,销毁则先调用OnHide接着调用OnDestroy
+6.UIManager添加接口可以关闭所有界面
+7.打开界面的时候自动解析界面元素，例如prefab里面有节点btnClose表示是一个关闭按钮，imgPlaza表示一个Image, 那再界面的代码里直接直接调用类似这样this.ui.btnClose就可以直接得到一个名为Close的Button组件, this.ui.imgPlaza可以直接得到一个名字为Plaza的Image, 不用手动去Getcomponet,目前解析关键词btn和img，只要节点以这2个前缀开始就去解析，后续会继续加类型，保留接口可以扩展其他类型
+8.

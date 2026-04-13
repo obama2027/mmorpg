@@ -60,21 +60,10 @@
     <Analyzer Include="D:\unity\Editor\2022.3.62t5\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Base\Net\Download\DownloadResult.cs" />
-    <Compile Include="Assets\Scripts\Base\Net\Download\DownloadOptions.cs" />
-    <Compile Include="Assets\Scripts\Base\Net\Http\HttpErrorCode.cs" />
-    <Compile Include="Assets\Scripts\Base\Net\Http\IHttpClient.cs" />
-    <Compile Include="Assets\Scripts\Base\Net\Http\UnityHttpClient.cs" />
-    <Compile Include="Assets\Scripts\Base\Net\Http\HttpModuleException.cs" />
-    <Compile Include="Assets\Scripts\Base\Net\Download\DownloadLogger.cs" />
-    <Compile Include="Assets\Scripts\Base\Net\Http\HttpRetryPolicy.cs" />
-    <Compile Include="Assets\Scripts\Base\Net\Http\HttpRequestOptions.cs" />
-    <Compile Include="Assets\Scripts\Base\Net\Download\DownloadErrorCode.cs" />
-    <Compile Include="Assets\Scripts\Base\Net\Http\HttpResponseData.cs" />
-    <Compile Include="Assets\Scripts\Base\Net\Download\DownloadModuleException.cs" />
-    <Compile Include="Assets\Scripts\Base\Net\Download\NetworkDownloader.cs" />
-    <Compile Include="Assets\Scripts\Base\Launch.cs" />
-    <Compile Include="Assets\Scripts\Base\Net\Http\HttpLogger.cs" />
+    <Compile Include="Assets\Scripts\Base\BaseHotUpdateModels.cs" />
+    <Compile Include="Assets\Scripts\Base\BaseHotUpdateRemote.cs" />
+    <Compile Include="Assets\Scripts\Base\BaseHotUpdateEntry.cs" />
+    <Compile Include="Assets\Scripts\Base\BaseHotUpdateStaging.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scripts\Base\Base.asmdef" />
